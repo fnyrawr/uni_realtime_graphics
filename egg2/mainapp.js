@@ -63,6 +63,7 @@ class MainApp {
 
     run(){
 
+        // init
         let deltaTime = 0;
         let lastTime = 0;
         let fpsInfo = dom.byID("gui_stats_fps")
@@ -70,16 +71,19 @@ class MainApp {
 
         let mainLoop = () => {
 
+            // calculate delta time and store nowTime in lastTime afterwards
             let nowTime = performance.now();
             deltaTime = nowTime - lastTime;
             lastTime = nowTime;
 
+            // calculate fps every 10 loops
             if(tmpLoopCounter === 10) {
                 fpsInfo.textContent = Math.round(1000 / deltaTime).toString();
                 tmpLoopCounter = 0;
             }
             tmpLoopCounter++;
 
+            // init this._activeScene
             if(this._activeScene !== undefined && deltaTime !== nowTime) {
                 this._activeScene.instance.update(deltaTime);
                 this._activeScene.instance.render();
