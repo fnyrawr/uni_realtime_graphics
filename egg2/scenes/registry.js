@@ -5,6 +5,8 @@ const SCENES = {
     'example 2D': './example_2D/app.js',
     'example 3D': './example_3D/app.js',
     'particle': './particles/app.js',
+	'kdTree': './kdtree/app.js',
+	'bezier': './bezier/app.js',
 };
 
 class Registry {
