@@ -17,7 +17,7 @@ class PhongScene extends Scene3D{
         this._camera.lookAt(vec3.fromValues(1, 1, 1), vec3.fromValues(0, 0, 0));
         this.ambientLight = [0.25, 0.25, 0.25];
         this.light = {
-            position: this._camera.eye,
+            position: [... this._camera.eye],
             color: [1.0, 1.0, 1.0]
         };
 
@@ -33,7 +33,7 @@ class PhongScene extends Scene3D{
         mat4.scale(greenSphereTransform, greenSphereTransform, vec3.fromValues(0.25, 0.25, 0.25));
         mat4.translate(greenSphereTransform, greenSphereTransform, vec3.fromValues(0, 0, 0));
 
-        this._spheres.green = new Model(sphereMesh, new BasicPhongMaterial(this.gl, appRuntime.shaderLoader, [0, 0.4, 0], [0, 0.8, 0]))
+        this._spheres.green = new Model(sphereMesh, new BasicPhongMaterial(this.gl, appRuntime.shaderLoader, [0, 1.0, 0], [0, 0.6, 0], [0.5, 0.5, 0.5]))
         this._spheres.green.transform = greenSphereTransform
         this._spheres.green._material.diffuseColor = [0, 1, 0]
 
@@ -44,7 +44,7 @@ class PhongScene extends Scene3D{
         mat4.scale(redSphereTransform, redSphereTransform, vec3.fromValues(0.25, 0.5, 0.75));
         mat4.translate(redSphereTransform, redSphereTransform, vec3.fromValues(1, 1, -1));
 
-        this._spheres.red = new Model(sphereMesh, new BasicPhongMaterial(this.gl, appRuntime.shaderLoader, [0, 0.4, 0], [0, 0.8, 0]))
+        this._spheres.red = new Model(sphereMesh, new BasicPhongMaterial(this.gl, appRuntime.shaderLoader, [0, 0.4, 0], [0, 0.8, 0], [0.5, 0.5, 0.5]))
         this._spheres.red.transform = redSphereTransform
         this._spheres.red._material.diffuseColor = [1, 0, 0]
 
@@ -55,7 +55,7 @@ class PhongScene extends Scene3D{
         mat4.scale(blueSphereTransform, blueSphereTransform, vec3.fromValues(0.75, 0.5, 0.25));
         mat4.translate(blueSphereTransform, blueSphereTransform, vec3.fromValues(-1, -1, 1));
 
-        this._spheres.blue = new Model(sphereMesh, new BasicPhongMaterial(this.gl, appRuntime.shaderLoader, [0, 0.4, 0], [0, 0.8, 0]))
+        this._spheres.blue = new Model(sphereMesh, new BasicPhongMaterial(this.gl, appRuntime.shaderLoader, [0, 0.4, 0], [0, 0.8, 0], [0.5, 0.5, 0.5]))
         this._spheres.blue.transform = blueSphereTransform
         this._spheres.blue._material.diffuseColor = [0, 0, 1]
 
@@ -72,6 +72,7 @@ class PhongScene extends Scene3D{
         mat4.rotateZ(rotationMatrix, rotationMatrix, rotationAngle);
 
         vec3.transformMat4(this._camera.eye, this._camera.eye, rotationMatrix);
+        vec3.transformMat4(this.light.position, this.light.position, rotationMatrix);
     }
 
     bind(model, program) {
@@ -87,11 +88,11 @@ class PhongScene extends Scene3D{
             mat3.transpose(normalMatrix, normalMatrix)
 
             // create light position and transform it
-            let lightPosition = vec4.fromValues(9, 1, 0, 1)
-            vec4.multiply(lightPosition, lightPosition, normalMatrix)
+            let lightPosition = []
+            vec3.transformMat4(lightPosition, this.light.position, this._camera.getViewMatrix());
 
             // set uniforms
-            program.setUniform("light.position", [lightPosition[0], lightPosition[1], lightPosition[2]])
+            program.setUniform("light.position", lightPosition)
             program.setUniform("light.color", [1, 1, 1])
             program.setUniform("ambientLight", [0.1, 0.1, 0.1])
             program.setUniform("normalMatrix", normalMatrix)

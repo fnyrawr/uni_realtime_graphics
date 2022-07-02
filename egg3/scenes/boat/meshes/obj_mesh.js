@@ -4,10 +4,10 @@ class OBJMesh extends Mesh{
     constructor(gl, data) {
         let rawVertices = []
         let vertIndices = []
-        let texIndices = []
         let normIndices = []
         let rawNormals = []
         let rawTexCoords = []
+        let texCoords = []
         let meshScale = 1/300
 
         const dataArray = data.match(/[^\s]+/g)
@@ -32,8 +32,9 @@ class OBJMesh extends Mesh{
                         for (let k = 1; k < 4; k++) {
                             const is = dataArray[j + k].split('/')
                             vertIndices.push(parseInt(is[0])-1)
-                            texIndices.push(parseInt(is[1])-1)
                             normIndices.push(parseInt(is[2])-1)
+                            texCoords[(is[0]-1) * 2] = rawTexCoords[(is[1] - 1) * 2]
+                            texCoords[(is[0]-1) * 2 + 1] = rawTexCoords[(is[1] - 1) * 2 + 1]
                         }
                         j += 3
                     }
@@ -43,15 +44,10 @@ class OBJMesh extends Mesh{
         }
 
         // sorting values to the correct orders
-        let vertices = []
         let normals = []
-        let texCoords = []
-        let faceCount = vertIndices.length/3
-        for(let i = 0; i < faceCount; i++) {
+        for(let i = 0; i < vertIndices.length; i++) {
             let index = i*3
-            vertices.push(vertIndices[index], vertIndices[index+1], vertIndices[index+2])
             normals.push(rawNormals[index], rawNormals[index+1], rawNormals[index+2])
-            texCoords.push(rawTexCoords[index], rawTexCoords[index+1], rawTexCoords[index+2])
         }
 
         super(gl, {
