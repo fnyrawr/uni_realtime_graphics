@@ -1,6 +1,5 @@
 import {Material} from "../core/material.js";
 
-
 class GridWaveMaterial extends Material {
 
     constructor(glContext, loader) {

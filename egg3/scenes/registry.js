@@ -10,6 +10,7 @@ const SCENES = {
 	'gizmo': './gizmo/app.js',
 	'boat': './boat/app.js',
     'phong': './phong/app.js',
+    'earth': './earth/app.js',
 };
 
 class Registry {

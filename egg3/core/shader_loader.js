@@ -13,6 +13,9 @@ const DEFAULT_SHADERS = Object.freeze({
     },
     "boat": {
         VERTEX: '../shaders/boat.vert', FRAGMENT: '../shaders/boat.frag'
+    },
+    "earth": {
+        VERTEX: '../shaders/earth.vert', FRAGMENT: '../shaders/earth.frag'
     }
 });
 

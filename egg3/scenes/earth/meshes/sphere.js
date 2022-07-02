@@ -1,5 +1,4 @@
 import {Mesh} from "../../../core/mesh.js";
-import {AttributeBuffer} from "../../../core/buffers.js";
 
 let _sphereCache = {}
 
@@ -79,14 +78,6 @@ class Sphere extends Mesh {
 
         super(gl, _sphereCache[key]);
 
-        /*
-        // texcoords
-        this.texcoordsBuffer = new AttributeBuffer(gl, {
-            numComponents : 2,
-            dataType : gl.FLOAT,
-            data : config.texcoords
-        });
-        */
     }
 }
 
