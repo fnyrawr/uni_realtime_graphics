@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BHT - EGG</title>
+    <link href="gui/css/main.css" rel="stylesheet">
+    <script type="module" src="mainapp.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-text"><h1>Echtzeitgrafik Grundlagen</h1></div>
+            <img class="bht-logo" src="gui/images/bht-logo.svg" alt="BHT-Logo">
+        </header>
+        <main>
+            <div id="gui_control_panel" class="control-panel">
+                <div id="gui_general_control">
+                    <h6>General control:</h6>
+                    <div id="gui_stats">
+                        FPS: <span id="gui_stats_fps">00</span>
+                    </div>
+                    <div id="gui_general_exercise_control_panel">
+                        <label for="gui_general_exercise_select">Scene:</label>
+                        <select id="gui_general_exercise_select" name="exercises"></select>
+                        <button id="gui_general_btn_play" class="pressed-btn">pause</button>
+                        <button id="gui_general_btn_reload">Reload</button>
+                    </div>
+                </div>
+                <div id="gui_exercise_control">
+                    <h6>Scene control:</h6>
+
+                    <template id="gui_select_template">
+                        <label></label>
+                        <select></select>
+                    </template>
+
+                </div>
+            </div>
+            <div id="canvas-container" class="canvas-container">
+                <canvas id="canvas_2d" class="hide"></canvas>
+                <canvas id="canvas_3d" class="hide"></canvas>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
