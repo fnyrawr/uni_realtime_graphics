@@ -4,10 +4,12 @@ uniform mat3 normalMatrix;
  
 attribute vec3 vertexPosition;
 attribute vec3 vertexNormal;
+attribute vec2 vertexTexcoords;
 
 // eye coordinates for fragment phong
 varying vec3 ecPosition;
 varying vec3 ecNormal;
+varying vec2 texcoords;
 
 
 void main() {

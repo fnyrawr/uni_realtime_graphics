@@ -48,7 +48,7 @@ void main() {
 	float worldOcean = texture2D(uSamplerOcean, texcoords).x;
 
 	// add 2 cloud layers
-	float cloudLayer1 = texture2D(uSamplerCloud, 1.0-texcoords + vec2(time * 0.000005, 0.0)).x;
+	float cloudLayer1 = texture2D(uSamplerCloud, 1.0-texcoords + vec2(time * 0.00001, 0.0)).x;
 	float cloudLayer2 = texture2D(uSamplerCloud, texcoords + vec2(time * -0.000005, 0.0)).x;
 	// make clouds more transparent
 	float clouds = max(max(cloudLayer1, cloudLayer2), fresnel) * 0.5;
